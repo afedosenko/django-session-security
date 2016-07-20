@@ -26,7 +26,7 @@ import warnings
 from django.core import urlresolvers
 from django.conf import settings
 
-__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS']
+__all__ = ['EXPIRE_AFTER', 'WARN_AFTER', 'PASSIVE_URLS', 'SKIP_URLS']
 
 EXPIRE_AFTER = getattr(settings, 'SESSION_SECURITY_EXPIRE_AFTER', 600)
 
@@ -39,3 +39,5 @@ PASSIVE_URLS += [
 
 if not getattr(settings, 'SESSION_EXPIRE_AT_BROWSER_CLOSE', False):
     warnings.warn('settings.SESSION_EXPIRE_AT_BROWSER_CLOSE is not True')
+
+SKIP_URLS = getattr(settings, 'SESSION_SECURITY_SKIP_URLS', [])

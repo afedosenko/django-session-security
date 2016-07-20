@@ -15,7 +15,7 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 
 from .utils import get_last_activity, set_last_activity
-from .settings import EXPIRE_AFTER, PASSIVE_URLS
+from .settings import EXPIRE_AFTER, PASSIVE_URLS, SKIP_URLS
 
 
 class SessionSecurityMiddleware(object):
@@ -33,7 +33,7 @@ class SessionSecurityMiddleware(object):
 
     def process_request(self, request):
         """ Update last activity time or logout. """
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() or (request.path in SKIP_URLS):
             return
 
         now = datetime.now()
